@@ -1,0 +1,35 @@
+kubectl create ns sample
+  699  mkdir dev
+  700  ls
+  701  rm -rf dev/
+  702  cd /home/
+  703  ls
+  704  mkdir dev
+  705  cd dev/
+  706  openssl genrsa -out dev.key 2048
+  707  ls
+  708  openssl req -new -key dev.key -out dev.csr -subj "/CN=dev/O=sample"
+  709  ls
+  710  openssl x509 -req -in dev.csr -CA /etc/kubernetes/pki/ca.crt -CAkey /etc/kubernetes/pki/ca.key -CAcreateserial -out dev.crt -days 10
+  711  ls
+  712  cat dev.crt
+  713  cat dev.csr
+  714  cat dev.key
+  715  cat ~/.kube/config
+  716  vi devrole.yaml
+  717  vi devrolebinding.yaml
+  718  cat devrole
+  719  cat devrole.yaml
+  720  cat devrolebinding.yaml
+  721  vim devrolebinding.yaml
+  722  kubectl create -f devrole.yaml
+  723  kubectl create -f devrolebinding.yaml
+  724  ls
+  725  kubectl config set-credentials dev --client-certificate=/home/dev/dev.crt --client-key=/home/dev/dev.key
+  726  ll
+  727  kubectl config set-context dev-context --cluster=kubernetes --namespace=sample --user=dev
+  728  kubectl config set-context dev-context --cluster=kubernetes --namespace=sample --user=dev
+  729  cat ~/.kube/config
+  730  ls
+  731  scp -r dev.crt root@192.168.56.118:/home/
+  732  scp -r dev.key root@192.168.56.118:/home/
